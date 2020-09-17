@@ -7,11 +7,13 @@ using UnityEngine.PlayerLoop;
 
 public class PlayerController : MonoBehaviour
 {
+    private Vector2 force;
     private bool shootPlayerLock = true;
 
     public float thrust = 1.0f;
     public GameObject aimCursor;
     public Rigidbody2D playerRigidBody;
+
 
     private void Update()
     {
@@ -23,6 +25,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("Pressing Down");
             StartCoroutine(ShootPlayer(Input.mousePosition));
+            this.playerRigidBody.isKinematic = false;
         }
 
     }
@@ -38,15 +41,19 @@ public class PlayerController : MonoBehaviour
         Vector2 mousePositionRelativeToWorld = Camera.main.ScreenToWorldPoint(mousePos);
         Vector2 pointerDirection = mousePositionRelativeToWorld - playerRigidBody.position;
 
-        while (true) {
-            playerRigidBody.MovePosition(pointerDirection + new Vector2(0.001f, 0.001f) * thrust * Time.deltaTime);
+        force = pointerDirection * thrust * Time.deltaTime;
+        playerRigidBody.AddForce(force, ForceMode2D.Impulse);
 
-            yield return new WaitForSeconds(0.2f);
-
-        }
+        yield return null;
 
         shootPlayerLock = true;
 
+    }
+
+    IEnumerator StopPlayer()
+    {
+        playerRigidBody.AddForce(-force, ForceMode2D.Impulse);
+        yield return null;
     }
 
     float GetAngleToPointCursorAt(Vector3 mousePos)
@@ -62,9 +69,12 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.tag == "Surface")
         {
+
+            StartCoroutine(StopPlayer());
+
             if (shootPlayerLock)
             {
-                StopCoroutine("ShootPlayer");
+                this.playerRigidBody.Sleep();
                 shootPlayerLock = false;
             }
             transform.parent = collision.transform;
