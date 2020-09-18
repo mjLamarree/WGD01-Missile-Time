@@ -10,8 +10,11 @@ public class PlayerController : MonoBehaviour
 {
     private Vector2 force;
     private Vector3 originalScale;
+    private string collidedObject;
     private bool shootPlayerLock = false;
-       
+
+    public Sprite jumpSprite;
+    public Sprite idleSprite;
     public float thrust = 1.0f;
     public GameObject aimCursor;
     public Rigidbody2D playerRigidBody;
@@ -19,10 +22,11 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         originalScale = transform.localScale;
+        TriggerJumpAnimation(false);
     }
 
     private void Update()
-    {
+    {   
 
         HandleCursorMovement();
 
@@ -72,15 +76,25 @@ public class PlayerController : MonoBehaviour
         return angle;
     }
 
+    void TriggerJumpAnimation(bool isPlayerOffGround)
+    {
+        this.GetComponent<Animator>().SetBool("offGround", isPlayerOffGround);
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
         if (collision.gameObject.tag == "Surface")
         {
 
-            transform.parent = collision.transform;
+            Debug.Log("1");
 
-            if (shootPlayerLock)
+            collidedObject = collision.collider.name;
+
+            transform.parent = collision.transform;
+            TriggerJumpAnimation(false);
+
+            if (shootPlayerLock || collidedObject.Equals(collision.collider.name))
             {
                 StopPlayer();
                 shootPlayerLock = false;
@@ -93,11 +107,23 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionStay2D(Collision2D collision)
     {
 
-        if (collision.gameObject.tag == "Surface")
+        Debug.Log("2");
+
+        if (collidedObject.Equals(collision.collider.name))
         {
             shootPlayerLock = false;
             aimCursor.SetActive(true);
         }
+
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+
+        Debug.Log("Not Colliding");
+        TriggerJumpAnimation(true);
+
+        collidedObject = "";
 
     }
 
