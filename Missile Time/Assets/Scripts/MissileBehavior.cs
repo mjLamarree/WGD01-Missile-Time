@@ -11,20 +11,33 @@ public class MissileBehavior : MonoBehaviour
 
     void Start()
     {
-       
+        missileTarget = GameObject.FindGameObjectWithTag("Boss");
+
     }
 
     void Update()
     {
+
+
         MissileMovement();
         
     }
 
     public void MissileMovement()
     {
-        transform.position = Vector3.MoveTowards(transform.position, missileTarget.GetComponent<Transform>().position, missileSpeed * Time.deltaTime);
+
+        transform.position = new Vector3(transform.position.x - (missileSpeed * Time.deltaTime), transform.position.y, 0);
+
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Surface"))
+        {
+            GetComponentInChildren<MissileExplosion>().StartCoroutine("MissileImpact");
+        }
+
+    }
 
 
 }
