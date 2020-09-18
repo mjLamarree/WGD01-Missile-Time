@@ -8,13 +8,11 @@ public class MissileBehavior : MonoBehaviour
     public GameObject missileTarget;
 
     public float missileSpeed;
-    private float targetY;
-    private float targetX;
+
     void Start()
     {
         missileTarget = GameObject.FindGameObjectWithTag("Boss");
-        targetY = missileTarget.GetComponent<Transform>().position.y + Random.Range(-10f, 10f);
-        targetX = missileTarget.GetComponent<Transform>().position.x + Random.Range(-10f, 10f);
+
     }
 
     void Update()
@@ -28,8 +26,7 @@ public class MissileBehavior : MonoBehaviour
     public void MissileMovement()
     {
 
-        transform.position = 
-            Vector3.MoveTowards(transform.position, new Vector3(targetX, targetY, 0f), missileSpeed * Time.deltaTime);
+        transform.position = new Vector3(transform.position.x - (missileSpeed * Time.deltaTime), transform.position.y, 0);
 
     }
 

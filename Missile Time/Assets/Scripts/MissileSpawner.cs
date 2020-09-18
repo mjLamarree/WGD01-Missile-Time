@@ -22,7 +22,7 @@ public class MissileSpawner : MonoBehaviour
         while (spawnersActive)
         {
             Instantiate(missile[Random.Range(1,3)], gameObject.transform);
-            yield return new WaitForSeconds(Random.Range(2f, 5f));
+            yield return new WaitForSeconds(Random.Range(1f, 3f));
         }
         
     }
