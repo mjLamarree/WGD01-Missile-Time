@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices.ComTypes;
 using TreeEditor;
@@ -10,7 +11,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 force;
     private Vector3 originalScale;
     private bool shootPlayerLock = false;
-
+       
     public float thrust = 1.0f;
     public GameObject aimCursor;
     public Rigidbody2D playerRigidBody;
@@ -76,16 +77,28 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.tag == "Surface")
         {
+
+            transform.parent = collision.transform;
+
             if (shootPlayerLock)
             {
                 StopPlayer();
                 shootPlayerLock = false;
                 aimCursor.SetActive(true);
-                //MaintainPlayerCharacterScale();
             }
-            transform.parent = collision.transform;
         }
    
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+
+        if (collision.gameObject.tag == "Surface")
+        {
+            shootPlayerLock = false;
+            aimCursor.SetActive(true);
+        }
+
     }
 
 }
