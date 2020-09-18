@@ -19,8 +19,13 @@ public class PlayerController : MonoBehaviour
     public GameObject aimCursor;
     public Rigidbody2D playerRigidBody;
 
+    public event Action revertOnExit;
+    public event Action slowDownOnEnter;
+    public static PlayerController current;
+    
     private void Awake()
     {
+        current = this;
         originalScale = transform.localScale;
         TriggerJumpAnimation(false);
     }
@@ -81,6 +86,22 @@ public class PlayerController : MonoBehaviour
         this.GetComponent<Animator>().SetBool("offGround", isPlayerOffGround);
     }
 
+    public void SlowDownMissileEnter()
+    {
+        if(slowDownOnEnter != null)
+        {
+            slowDownOnEnter();
+        }
+    }
+
+    public void RevertMissileExit()
+    {
+        if (revertOnExit != null)
+        {
+            revertOnExit();
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
@@ -99,6 +120,7 @@ public class PlayerController : MonoBehaviour
                 StopPlayer();
                 shootPlayerLock = false;
                 aimCursor.SetActive(true);
+                slowDownOnEnter();
             }
         }
    
@@ -113,6 +135,7 @@ public class PlayerController : MonoBehaviour
         {
             shootPlayerLock = false;
             aimCursor.SetActive(true);
+            slowDownOnEnter();
         }
 
     }
@@ -122,6 +145,7 @@ public class PlayerController : MonoBehaviour
 
         Debug.Log("Not Colliding");
         TriggerJumpAnimation(true);
+        revertOnExit();
 
         collidedObject = "";
 
