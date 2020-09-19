@@ -43,8 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 680544895628be548a9ba457d94c77a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  missile:
-  - {fileID: 9018877536652906538, guid: 0a2f79381a07a044ab645d7ded7ac110, type: 3}
-  - {fileID: 4053585066159504245, guid: c9e44494fba980f479032ef6beef07fc, type: 3}
-  - {fileID: 1047591353521653450, guid: 5b6bc0d01d04b8646bc50361b575e096, type: 3}
+  missile: {fileID: 1047591353521653450, guid: 5b6bc0d01d04b8646bc50361b575e096, type: 3}
   spawnersActive: 1
