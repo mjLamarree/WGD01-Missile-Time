@@ -8,11 +8,9 @@ public class MissileExplosion : MonoBehaviour
     public GameObject missileBody;
     public GameObject missileTailFlame;
     public Component missileBehaviorScript;
-    public Component missileBoxCollider;
     void Start()
     {
         anim = missileBody.GetComponent<Animator>();
-        missileBoxCollider = missileBody.GetComponent<BoxCollider2D>();
         missileBehaviorScript = missileBody.GetComponent<MissileBehavior>();
         StartCoroutine("MissileExplosionCountdown");
     }
@@ -21,7 +19,6 @@ public class MissileExplosion : MonoBehaviour
     {
         StopCoroutine("MissileExplosionCountdown");
         anim.Play("explosion");
-        Destroy(missileBoxCollider);
         Destroy(missileBehaviorScript);
         Destroy(missileTailFlame);
         Debug.Log("Tailflame dead");
@@ -31,7 +28,7 @@ public class MissileExplosion : MonoBehaviour
 
     public IEnumerator MissileExplosionCountdown()
     {
-        yield return new WaitForSeconds(180f);
+        yield return new WaitForSeconds(10f);
         StartCoroutine("MissileImpact");
         
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MissileSpawner : MonoBehaviour
 {
-    public GameObject missile;
+    public GameObject[] missile;
     public bool spawnersActive;
     void Start()
     {
@@ -21,7 +21,7 @@ public class MissileSpawner : MonoBehaviour
     {
         while (spawnersActive)
         {
-            Instantiate(missile, gameObject.transform);
+            Instantiate(missile[Random.Range(1,3)], gameObject.transform);
             yield return new WaitForSeconds(Random.Range(1f, 3f));
         }
         
