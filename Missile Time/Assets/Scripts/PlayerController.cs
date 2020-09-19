@@ -135,6 +135,7 @@ public class PlayerController : MonoBehaviour
         {
             shootPlayerLock = false;
             aimCursor.SetActive(true);
+            TriggerJumpAnimation(false);
             slowDownOnEnter();
         }
 
