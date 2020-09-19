@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Surface
   - Boss
+  - MoveA
+  - MoveB
   layers:
   - Default
   - TransparentFX

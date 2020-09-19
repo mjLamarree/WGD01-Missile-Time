@@ -22,9 +22,11 @@ public class PlayerController : MonoBehaviour
     public event Action revertOnExit;
     public event Action slowDownOnEnter;
     public static PlayerController current;
-    
+
+    public GameObject playerGameObject;
     private void Awake()
     {
+        playerGameObject = gameObject;
         current = this;
         originalScale = transform.localScale;
         TriggerJumpAnimation(false);
@@ -130,15 +132,17 @@ public class PlayerController : MonoBehaviour
     {
 
         Debug.Log("2");
-
-        if (collidedObject.Equals(collision.collider.name))
-        {
-            shootPlayerLock = false;
-            aimCursor.SetActive(true);
-            TriggerJumpAnimation(false);
-            slowDownOnEnter();
-        }
-
+        
+        
+         if (collidedObject.Equals(collision.collider.name))
+            {
+                shootPlayerLock = false;
+                aimCursor.SetActive(true);
+                TriggerJumpAnimation(false);
+                slowDownOnEnter();
+            }
+        
+  
     }
 
     private void OnCollisionExit2D(Collision2D collision)
