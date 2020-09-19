@@ -7,6 +7,7 @@ public class GameOverScreen : MonoBehaviour
 {
 
     public GameObject player;
+    public GameObject monster;
     public GameObject gameOverScreen;
 
     private void Start()
@@ -17,9 +18,10 @@ public class GameOverScreen : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        if (player == null)
+        if (player == null || (player == null && monster == null))
         {
             gameOverScreen.SetActive(true);
+            Time.timeScale = 0.0f;
         }
         else
         {

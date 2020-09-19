@@ -13,8 +13,7 @@ public class PlayerController : MonoBehaviour
     private string collidedObject;
     private bool shootPlayerLock = false;
 
-    public Sprite jumpSprite;
-    public Sprite idleSprite;
+    public int jumpScore = 0;
     public float thrust = 1.0f;
     public GameObject aimCursor;
     public Rigidbody2D playerRigidBody;
@@ -107,6 +106,11 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
+        if (collision.gameObject.tag == "Danger")
+        {
+            Destroy(this.gameObject);
+        }
+
         if (collision.gameObject.tag == "Surface")
         {
 
@@ -119,6 +123,7 @@ public class PlayerController : MonoBehaviour
 
             if (shootPlayerLock || collidedObject.Equals(collision.collider.name))
             {
+                jumpScore += 100;
                 StopPlayer();
                 shootPlayerLock = false;
                 aimCursor.SetActive(true);

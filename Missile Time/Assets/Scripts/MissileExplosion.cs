@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +10,7 @@ public class MissileExplosion : MonoBehaviour
     public GameObject missileTailFlame;
     public Component missileBehaviorScript;
     public Component missileBoxCollider;
+
     void Start()
     {
         anim = missileBody.GetComponent<Animator>();
@@ -24,7 +26,14 @@ public class MissileExplosion : MonoBehaviour
         Destroy(missileBoxCollider);
         Destroy(missileBehaviorScript);
         Destroy(missileTailFlame);
-        Debug.Log("Tailflame dead");
+        try
+        {
+            Destroy(GetComponentInChildren<PlayerController>().gameObject);
+            Debug.Log("Worked");
+        }
+        catch {
+            Debug.Log("Huh Guess this didn't work");
+        }
         yield return new WaitForSeconds(1);
         Destroy(missileBody);
     }
