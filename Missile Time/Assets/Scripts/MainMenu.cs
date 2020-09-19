@@ -8,7 +8,7 @@ public class MainMenu : MonoBehaviour
     
     public void StartGame()
     {
-        SceneManager.LoadScene("Assets/Scenes/Missile Time");
+        SceneManager.LoadScene("Scenes/Missile Time");
     }
 
     public void ExitGame()
