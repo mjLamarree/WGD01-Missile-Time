@@ -9,6 +9,7 @@ public class GameOverScreen : MonoBehaviour
     public GameObject player;
     public GameObject monster;
     public GameObject gameOverScreen;
+    public bool playerLose;
 
     private void Start()
     {
@@ -21,6 +22,7 @@ public class GameOverScreen : MonoBehaviour
         if (player == null || (player == null && monster == null))
         {
             gameOverScreen.SetActive(true);
+            playerLose = true;
             Time.timeScale = 0.0f;
         }
         else

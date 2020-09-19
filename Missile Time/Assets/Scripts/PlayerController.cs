@@ -114,7 +114,6 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Surface")
         {
 
-            Debug.Log("1");
 
             collidedObject = collision.collider.name;
 
@@ -136,7 +135,6 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionStay2D(Collision2D collision)
     {
 
-        Debug.Log("2");
         
         
          if (collidedObject.Equals(collision.collider.name))
@@ -153,7 +151,6 @@ public class PlayerController : MonoBehaviour
     private void OnCollisionExit2D(Collision2D collision)
     {
 
-        Debug.Log("Not Colliding");
         TriggerJumpAnimation(true);
         revertOnExit();
 

@@ -10,6 +10,7 @@ public class WinScreen : MonoBehaviour
     public GameObject monster;
     public GameObject winScreen;
     public GameObject scoreText;
+    public bool playerWin;
 
     private void Start()
     {
@@ -21,6 +22,7 @@ public class WinScreen : MonoBehaviour
     {
         if (monster == null && player != null)
         {
+            playerWin = true;
             scoreText.GetComponent<TextMeshProUGUI>().text = "Score: " + GetComponent<ScoreTracker>().scoreTracker.ToString();
             winScreen.SetActive(true);
             Time.timeScale = 0.0f;

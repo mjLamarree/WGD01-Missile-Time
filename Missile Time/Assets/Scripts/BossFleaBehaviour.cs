@@ -45,13 +45,11 @@ public class BossFleaBehaviour : MonoBehaviour
     {
         if (movingUp)
         {
-            Debug.Log("Moving up");
             transform.position = Vector3.MoveTowards(transform.position, movePointB.position, moveSpeed * Time.deltaTime);
         }
 
         if (movingDown)
         {
-            Debug.Log("Moving down");
             transform.position = Vector3.MoveTowards(transform.position, movePointA.position, moveSpeed * Time.deltaTime);
         }
     }

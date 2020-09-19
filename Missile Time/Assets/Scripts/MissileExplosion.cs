@@ -29,10 +29,10 @@ public class MissileExplosion : MonoBehaviour
         try
         {
             Destroy(GetComponentInChildren<PlayerController>().gameObject);
-            Debug.Log("Worked");
+
         }
         catch {
-            Debug.Log("Huh Guess this didn't work");
+
         }
         yield return new WaitForSeconds(1);
         Destroy(missileBody);
